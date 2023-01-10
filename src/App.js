@@ -1,18 +1,16 @@
 import React, { useState } from "react";
-import logo from './logo.svg';
 import './App.css';
 import List from './List';
-import { render } from "@testing-library/react";
 
 function App() {
-  let [할일,할일변경] = useState()
-  let [목록,목록변경] = useState([])
+  const [toDo,toDoChange] = useState("")
+  const [doList,doListChange] = useState([])
   const onChange = (e) => {
-    할일변경(e.target.value)
+    toDoChange(e.target.value)
   };
-  const 목록생성 = () =>{
-    let listTodo = [...목록,할일];
-    목록변경(listTodo)
+  const listAdd = () =>{
+    const listTodo = [...doList,toDo];
+    doListChange(listTodo)
   }
   return (
     <div className="todo">
@@ -20,18 +18,20 @@ function App() {
       <input className="input" 
       onChange={ onChange }
       onKeyDown={(e)=>{
-        console.log(e)
-        if(e.key === "Enter"){
-          목록생성()
+        if(e.key === "Enter" && toDo != ""){
+          listAdd()
         }
       }}
-      placeholder = "입력칸" value={ 할일 }></input>
-      <button onClick={
-          목록생성
+      placeholder = "입력하세요" value={ toDo }></input>
+      <button onClick={()=>{
+        if(toDo!=""){
+          listAdd()
+        }
+      }
       }>
         추가
       </button>
-    <List test = { 목록 }/>
+    <List doList = { doList }/>
     </div>
   );
 }
