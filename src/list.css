@@ -6,14 +6,14 @@
     border-radius: 5px;
     align-items: center;
 }
-#check{
+.check{
     position: fixed;
     right: 30px;
     color: green;
     margin: 70px;
     cursor: pointer;
 }
-#delete{
+.delete{
     position: fixed;
     right: 10px;
     color: rgb(139, 0, 0);

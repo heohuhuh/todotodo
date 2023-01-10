@@ -3,35 +3,31 @@ import './App.css';
 import List from './List';
 
 function App() {
-  const [toDo,toDoChange] = useState("")
-  const [doList,doListChange] = useState([])
+  const [todo,setTodo] = useState('')
+  const [todoList,setTodoList] = useState([])
+
   const onChange = (e) => {
-    toDoChange(e.target.value)
+    setTodo(e.target.value)
   };
-  const listAdd = () =>{
-    const listTodo = [...doList,toDo];
-    doListChange(listTodo)
+
+  const listAdd = (item,list) =>{
+    if(item !== ''){
+      const listTodo = [...list,item];
+      setTodoList(listTodo);
+    }
   }
+  const addCheck = (item)=> {
+        setTodoList(item);
+  }
+
   return (
     <div className="todo">
-      <p>일단 todo</p>
-      <input className="input" 
-      onChange={ onChange }
-      onKeyDown={(e)=>{
-        if(e.key === "Enter" && toDo != ""){
-          listAdd()
-        }
-      }}
-      placeholder = "입력하세요" value={ toDo }></input>
-      <button onClick={()=>{
-        if(toDo!=""){
-          listAdd()
-        }
-      }
-      }>
-        추가
-      </button>
-    <List doList = { doList }/>
+      <p>todo하세요~ todo</p>
+      <input className="input" onChange={ onChange } onKeyDown={(e)=>{
+        if(e.key === "Enter")listAdd(todo,todoList);
+      }} placeholder = "입력하세요" value={ todo }></input>
+      <button onClick={()=>{listAdd(todo,todoList)}}>추가</button>
+    <List todoList = { todoList }/>
     </div>
   );
 }
