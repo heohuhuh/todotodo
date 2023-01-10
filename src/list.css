@@ -1,0 +1,22 @@
+.list{
+    background: #eee;
+    padding: 1px;
+    margin: 3px;
+    display: flex;
+    border-radius: 5px;
+    align-items: center;
+}
+.check{
+    position: fixed;
+    right: 30px;
+    color: green;
+    margin: 70px;
+    cursor: pointer;
+}
+.delete{
+    position: fixed;
+    right: 10px;
+    color: rgb(139, 0, 0);
+    margin: 30px;
+    cursor: pointer;
+}

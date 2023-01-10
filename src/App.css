@@ -1,6 +1,10 @@
 .App {
   text-align: center;
 }
+.todo{
+  margin: 5px;
+  padding: 5px;
+}
 
 .App-logo {
   height: 40vmin;
