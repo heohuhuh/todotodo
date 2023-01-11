@@ -32,11 +32,8 @@ const Delete = styled.button`
 `
 //컴포넌트
 function Listbody(props){
-    const deleteList = (todolist,item)=> {
-        const clone = todolist.filter(name => name !== item); //splice -> filter로 변경, index 참조 -> 값 참조
-        console.log(clone)
-        const cloneList = [...clone]
-        return cloneList;
+    const deleteList = (todolist,id)=> {
+        return todolist.filter(list => list.id !== id); //filter clone 필요없으므로 바로 리턴에 넣었음! 말해준 deleteItem은 어떻게 적용해야할지 모르겠어서 일단 이렇게 했음...!
     }
 
 
@@ -48,7 +45,7 @@ function Listbody(props){
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
                 </Checkbox>
                 <Delete onClick={()=>{
-                    const deleteItem = deleteList(props.todoList,props.item)
+                    const deleteItem = deleteList(props.todoList,props.id)
                     props.listChange(deleteItem);
                     }}>삭제
                 </Delete>

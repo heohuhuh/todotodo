@@ -11,7 +11,8 @@ const Title = styled.h2`
   font-weight : bold;
 `
 function App() {
-  const [todoList,setTodoList] = useState([])
+  const [todoList,setTodoList] = useState([{id: '',todo : '' }]);
+  console.log(todoList)
 
   return (
     <Todobox>
