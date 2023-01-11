@@ -1,7 +1,15 @@
 import React, { useState } from "react";
-import './App.css';
+import styled from 'styled-components';
 import List from './List';
 
+const Todobox= styled.div`
+  margin: 5px;
+  padding: 5px;
+`
+const Title = styled.h2`
+  font-weight : bold;
+
+`
 function App() {
   const [todo,setTodo] = useState('')
   const [todoList,setTodoList] = useState([])
@@ -20,8 +28,8 @@ function App() {
   }
 
   return (
-    <div className="todo">
-      <p>todo하세요~ todo</p>
+    <Todobox>
+      <Title>todo하세요~ todo</Title>
       <input className="input" onChange={ onChange } onKeyDown={(e)=>{
         if(e.key === "Enter"){
           const addList = listAdd(todo,todoList)
@@ -33,7 +41,7 @@ function App() {
         setTodoList(addList)
       }}>추가</button>
     <List todoList = { todoList }/>
-    </div>
+    </Todobox>
   );
 }
 
