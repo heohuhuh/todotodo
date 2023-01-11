@@ -8,7 +8,6 @@ const Todobox= styled.div`
 `
 const Title = styled.h2`
   font-weight : bold;
-
 `
 function App() {
   const [todo,setTodo] = useState('')
@@ -35,12 +34,12 @@ function App() {
           const addList = listAdd(todo,todoList)
           setTodoList(addList)
         };
-      }} placeholder = "입력하세요" value={ todo }></input>
+      }} placeholder = "입력하세요~" value={ todo }></input>
       <button onClick={()=>{
         const addList = listAdd(todo,todoList)
         setTodoList(addList)
       }}>추가</button>
-    <List todoList = { todoList }/>
+    <List todoList = { todoList } listChange = { setTodoList }/>
     </Todobox>
   );
 }
