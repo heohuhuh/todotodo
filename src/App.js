@@ -5,7 +5,7 @@ import Inputitem from './Inputitem';
 import Donelist from './Donelist';
 
 function App() {
-  const [todoList,setTodoList] = useState([{id: '',todo : '',clear :''}]);
+  const [todoList,setTodoList] = useState([{}]);
 
   return (
     <div>

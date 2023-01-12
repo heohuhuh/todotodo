@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import uuid from "react-uuid"
 
 function Inputitem({todoList,setTodoList}){
   const [todo,setTodo] = useState('')
@@ -8,7 +8,7 @@ function Inputitem({todoList,setTodoList}){
   };
   
   const addTodo = (todo,list) =>{
-      const idNumber = Number(list[list.length-1].id) + 1; //id 번호 부여는 제일 끝 id 번호에 +1해서 꼬임방지
+      const idNumber = uuid(); //id 번호 부여는 제일 끝 id 번호에 +1해서 꼬임방지
       const todoValue = {
         id : idNumber,
         todo : todo,
