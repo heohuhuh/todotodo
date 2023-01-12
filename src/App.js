@@ -1,8 +1,24 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
-import List from './List';
-import Inputbutton from './inputbutton';
+import Todolist from './Todolist';
+import Inputitem from './Inputitem';
 
+function App() {
+  const [todoList,setTodoList] = useState([{id: '',todo : '' }]);
+
+  return (
+    <Todobox>
+      <Title>todo하세요~ todo</Title>
+      <Inputitem todoList={todoList} setTodoList={setTodoList}/>
+      <Todolist todoList={todoList} setTodoList={setTodoList}/>
+      <Middleline></Middleline>
+    </Todobox>
+  );
+}
+
+export default App;
+
+//스타일
 const Todobox= styled.div`
   margin: 5px;
   padding: 5px;
@@ -10,17 +26,8 @@ const Todobox= styled.div`
 const Title = styled.h2`
   font-weight : bold;
 `
-function App() {
-  const [todoList,setTodoList] = useState([{id: '',todo : '' }]);
-  console.log(todoList)
-
-  return (
-    <Todobox>
-      <Title>todo하세요~ todo</Title>
-      <Inputbutton todoList = { todoList } setTodoList = { setTodoList }/>
-      <List todoList = { todoList } listChange = { setTodoList }/>
-    </Todobox>
-  );
-}
-
-export default App;
+const Middleline = styled.hr`
+  background: #000;
+  border: none;
+  padding: 0.5px;
+`
