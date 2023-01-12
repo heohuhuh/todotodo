@@ -2,17 +2,23 @@ import React, { useState } from "react";
 import styled from 'styled-components';
 import Todolist from './Todolist';
 import Inputitem from './Inputitem';
+import Donelist from './Donelist';
 
 function App() {
-  const [todoList,setTodoList] = useState([{id: '',todo : '' }]);
+  const [todoList,setTodoList] = useState([{id: '',todo : '',clear :''}]);
 
   return (
+    <div>
     <Todobox>
       <Title>todo하세요~ todo</Title>
       <Inputitem todoList={todoList} setTodoList={setTodoList}/>
       <Todolist todoList={todoList} setTodoList={setTodoList}/>
-      <Middleline></Middleline>
     </Todobox>
+    <Donebox>
+      <Title>해치웠다!</Title>
+      <Donelist todoList={todoList} setTodoList={setTodoList}/>
+    </Donebox>
+    </div>
   );
 }
 
@@ -20,6 +26,12 @@ export default App;
 
 //스타일
 const Todobox= styled.div`
+position: fixed;
+  top: 0;
+  left:0;
+  right: 0;
+  bottom: 30%;
+  overflow: overlay;
   margin: 5px;
   padding: 5px;
 `
@@ -30,4 +42,14 @@ const Middleline = styled.hr`
   background: #000;
   border: none;
   padding: 0.5px;
+`
+const Donebox = styled.footer`
+  position: fixed;
+  top:70%;
+  bottom: 0%;
+  left:0;
+  right: 0;
+  overflow: overlay;
+  margin: 5px;
+  padding: 5px;
 `
