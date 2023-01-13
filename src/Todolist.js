@@ -1,7 +1,7 @@
 import Todoitem from "./Todoitem";
-import Doneitem from './Doneitem';
+import Doneitem from "./Doneitem";
 
-function Todolist({ todoList, setTodoList,isDone }) {
+function Todolist({ todoList, setTodoList, isDone }) {
   //const {todoList,setTodoList} = props;
 
   const deleteList = (id) => {
@@ -23,36 +23,41 @@ function Todolist({ todoList, setTodoList,isDone }) {
     setTodoList(clearedList);
   };
 
-  return(
+  return (
     <div>
-        {isDone?
-        todoList
-        .filter((list) => list.done === true)
-        .map((todoList, i) => (
-            <Doneitem
-            key={i}
-            todoList={todoList}
-            deleteList={deleteList}
-            redoList={redoList}
-            />
-        )):todoList
-        .filter((list) => list.done === false)
-        .map(
-        (
-            todoList,
-            i //초기값 공백 목록 추가x
-        ) => (
-            <Todoitem
-            key={i}
-            todoList={todoList}
-            deleteList={deleteList}
-            doneList={doneList}
-            />
-        )
-        )
+      { todoList
+            .filter((list) => list.done === isDone)
+            .map((todoList, i) => {
+              return isDone ? (
+              <Doneitem
+                key={i}
+                todoList={todoList}
+                deleteList={deleteList}
+                redoList={redoList}
+              />) : (
+              <Todoitem
+              key={i}
+              todoList={todoList}
+              deleteList={deleteList}
+              doneList={doneList}
+            />)
+            })
         }
     </div>
   );
 }
 
 export default Todolist;
+
+function Test(){
+  return 1
+}
+
+const a = () => {
+  return 1
+}
+const aResult = a()
+console.log(aResult)
+const b = () => 1
+const bResult = b()
+console.log(bResult)
