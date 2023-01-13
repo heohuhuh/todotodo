@@ -1,18 +1,12 @@
 import Todoitem from "./Todoitem";
 
 function Todolist({ todoList, setTodoList, isDone }) {
-  //const {todoList,setTodoList} = props;
-
   const deleteList = (id) => {
     const deletedList = todoList.filter((todoList) => todoList.id !== id);
     setTodoList(deletedList);
   };
 
   const toggleStatus = (id) => {
-    /* const clearedList = [...todoList]; 
-    clearedList.forEach((list) => {
-      if (list.id === id) list.done ? list.done=false : list.done=true;
-    }); */
     const mappedList = todoList.map(item=>{
         if (item.id === id) return { ...item, done: !item.done }
         return item;

@@ -2,12 +2,13 @@ import styled from "styled-components";
 
 //컴포넌트
 function Todoitem({ todoItem, deleteList, toggleStatus, isDone }) {
+  function buttonClick() {
+    toggleStatus(todoItem.id);
+  }
   return (
     <Listline>
       <Tag> {todoItem.todo} </Tag>
-      {isDone ? <RedoButton handleClick={toggleStatus} id={todoItem.id} /> 
-      :
-      <DoneButton handleClick={toggleStatus} id={todoItem.id} /> }
+      <Buttons buttonClick={buttonClick} isDone={isDone} />
       <DeleteButton
         onClick={() => {
           deleteList(todoItem.id);
@@ -21,25 +22,24 @@ function Todoitem({ todoItem, deleteList, toggleStatus, isDone }) {
 
 export default Todoitem;
 
-const DoneButton = ({handleClick, id})=>{
-  return (
+const Buttons = ({ buttonClick, isDone }) => {
+  return isDone ? (
+    <StyledRedoButton onClick={() => buttonClick()}>다시하기</StyledRedoButton>
+  ) : (
     <Checkbox
-        onClick={() => {
-          handleClick(id);
-        }}
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
-        viewBox="0 0 16 16"
-      >
-        <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
-      </Checkbox>
-      )
-}
-const RedoButton = ({handleClick, id}) => {
-  return (<StyledRedoButton onClick={() => handleClick(id)} >다시하기</StyledRedoButton>)
-}
+      onClick={() => {
+        buttonClick();
+      }}
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      fill="currentColor"
+      viewBox="0 0 16 16"
+    >
+      <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+    </Checkbox>
+  );
+};
 //스타일
 const Listline = styled.div`
   background: #eee;
@@ -71,11 +71,11 @@ const DeleteButton = styled.button`
   border-style: none;
 `;
 const StyledRedoButton = styled.button`
-    position: absolute;
-    right: 50px;
-    color: blue;
-    margin: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    border-style: none;
-`
+  position: absolute;
+  right: 50px;
+  color: blue;
+  margin: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  border-style: none;
+`;
