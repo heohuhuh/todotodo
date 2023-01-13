@@ -6,48 +6,116 @@ import Inputitem from './Inputitem';
 function App() {
   const [todoList,setTodoList] = useState([{}]);
   return (
-    <div>
-    <Todobox>
-      <Title>todo하세요~ todo</Title>
+    <Correntbox>
+      <TodoTitle>todo하세요~ todo</TodoTitle>
       <Inputitem todoList={todoList} setTodoList={setTodoList}/>
+    <Todoline/>
+    <Todobox>
       <Todolist todoList={todoList} setTodoList={setTodoList} isDone={false}/>
     </Todobox>
+      <DoneTitle>해치웠다!</DoneTitle>
+      <Doneline/>
     <Donebox>
-      <Title>해치웠다!</Title>
       <Todolist todoList={todoList} setTodoList={setTodoList} isDone={true}/>
     </Donebox>
-    </div>
+    </Correntbox>
   );
 }
 
 export default App;
 
 //스타일
-const Todobox= styled.div`
-position: fixed;
-  top: 0;
-  left:0;
-  right: 0;
-  bottom: 30%;
-  overflow: overlay;
-  margin: 5px;
-  padding: 5px;
-`
-const Title = styled.h2`
-  font-weight : bold;
-`
-const Middleline = styled.hr`
-  background: #000;
-  border: none;
-  padding: 0.5px;
-`
-const Donebox = styled.footer`
+const Correntbox= styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: fixed;
-  top:70%;
-  bottom: 0%;
-  left:0;
-  right: 0;
+    top: 50px;
+    left:0;
+    right: 0;
+    bottom: 0;
   overflow: overlay;
+  margin: 0px;
+  padding: 0px; 
+  &::-webkit-scrollbar {
+    background:none;
+    width:5px;
+  }  
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+  }
+`
+const TodoTitle = styled.h2`
+  font-size: 32px;
+  font-weight : bold;
+  position: absolute;
+    top: 0;
+  margin: 0px;
+  padding: 0px;
+`
+
+const Todoline = styled.hr`
+  position: absolute; 
+    top:  90px;
   margin: 5px;
+  border: none;
+  width: 400px;
+  height: 2px;
+  background: #999;
+`
+const Todobox= styled.div`
+  position: absolute;
+    top: 100px;
+  width: 400px;
+  height: 300px;
+  overflow: overlay;
+  margin: 0px;
+  padding: 5px; 
+  //background: linear-gradient( to top , #ff9a9e  , #fad0c4);
+  border-radius: 10px;
+  &::-webkit-scrollbar {
+    background:none;
+    width:5px;
+  }  
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+  }
+`
+const DoneTitle = styled.h2`
+  font-size: 24px;
+  font-weight : bold;
+  position: absolute;
+    top: 410px;
+  margin: 20px;
+  padding: 0px;
+`
+const Doneline = styled.hr`
+  position: absolute; 
+    top:  460px;
+  margin: 5px;
+  border: none;
+  width: 400px;
+  height: 2px;
+  background: #999;
+`
+const Donebox = styled.div`
+  position: absolute;
+    top:470px;
+  height: 200px;
+  width: 400px;
+  overflow: overlay;
+  margin: 0px;
   padding: 5px;
+  //background: linear-gradient( to top , #ff9a9e 30% , #fad0c4);
+  border-radius: 10px;
+  &::-webkit-scrollbar {
+    background:none;
+    width:5px;
+  }  
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+  }
 `
