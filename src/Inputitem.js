@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import uuid from "react-uuid"
+import styled from 'styled-components';
 
 function Inputitem({todoList,setTodoList}){
   const [todo,setTodo] = useState('')
@@ -21,17 +22,57 @@ function Inputitem({todoList,setTodoList}){
     }
 
   return(
-      <div>
-          <input onChange={ onChange } onKeyDown={(e)=>{
+      <Itembox>
+          <Input onChange={ onChange } onKeyDown={(e)=>{
               if(e.key === "Enter"){
               addTodo(todo,todoList)
               };
-          }} placeholder = "입력하세요~" value={ todo }></input>
-          <button onClick={()=>{
+          }} placeholder = "입력하세요~" value={ todo }></Input>
+          <Button onClick={()=>{
               addTodo(todo,todoList)
-          }}>추가</button>
-      </div>
+          }}>추가</Button>
+          <Button onClick={()=>{
+              setTodoList([{}])
+          }}>초기화</Button>
+      </Itembox>
   )
 }
 
 export default Inputitem;
+
+const Itembox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  top: 42px;
+  margin: 5px;
+  padding: 5px;
+`
+const Input = styled.input`
+display: flex;
+flex-direction: column;
+align-items: center;
+  top : 60px;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
+  border: 2px solid;
+  width: 200px;
+`
+const Button = styled.button`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top : 60px;
+  margin: 5px;
+  padding: 5px 10px 5px 10px;
+  width: 70px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 5px;
+  border: 2px solid green;
+  color: black;
+  background: white;
+  cursor: pointer;
+`
