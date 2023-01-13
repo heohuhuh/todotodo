@@ -1,26 +1,55 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
-import List from './List';
-import Inputbutton from './inputbutton';
+import Todolist from './Todolist';
+import Inputitem from './Inputitem';
+import Donelist from './Donelist';
 
+function App() {
+  const [todoList,setTodoList] = useState([{}]);
+
+  return (
+    <div>
+    <Todobox>
+      <Title>todo하세요~ todo</Title>
+      <Inputitem todoList={todoList} setTodoList={setTodoList}/>
+      <Todolist todoList={todoList} setTodoList={setTodoList}/>
+    </Todobox>
+    <Donebox>
+      <Title>해치웠다!</Title>
+      <Donelist todoList={todoList} setTodoList={setTodoList}/>
+    </Donebox>
+    </div>
+  );
+}
+
+export default App;
+
+//스타일
 const Todobox= styled.div`
+position: fixed;
+  top: 0;
+  left:0;
+  right: 0;
+  bottom: 30%;
+  overflow: overlay;
   margin: 5px;
   padding: 5px;
 `
 const Title = styled.h2`
   font-weight : bold;
 `
-function App() {
-  const [todoList,setTodoList] = useState([{id: '',todo : '' }]);
-  console.log(todoList)
-
-  return (
-    <Todobox>
-      <Title>todo하세요~ todo</Title>
-      <Inputbutton todoList = { todoList } setTodoList = { setTodoList }/>
-      <List todoList = { todoList } listChange = { setTodoList }/>
-    </Todobox>
-  );
-}
-
-export default App;
+const Middleline = styled.hr`
+  background: #000;
+  border: none;
+  padding: 0.5px;
+`
+const Donebox = styled.footer`
+  position: fixed;
+  top:70%;
+  bottom: 0%;
+  left:0;
+  right: 0;
+  overflow: overlay;
+  margin: 5px;
+  padding: 5px;
+`
