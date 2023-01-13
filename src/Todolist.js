@@ -27,21 +27,15 @@ function Todolist({ todoList, setTodoList, isDone }) {
     <div>
       { todoList
             .filter((list) => list.done === isDone)
-            .map((todoList, i) => {
-              return isDone ? (
-              <Doneitem
-                key={i}
-                todoList={todoList}
-                deleteList={deleteList}
-                redoList={redoList}
-              />) : (
+            .map((todoItem, i) => 
               <Todoitem
               key={i}
-              todoList={todoList}
+              todoItem={todoItem}
               deleteList={deleteList}
               doneList={doneList}
+              redoList={redoList}
+              isDone ={isDone}
             />)
-            })
         }
     </div>
   );
