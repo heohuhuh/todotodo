@@ -6,17 +6,16 @@ import Donelist from './Donelist';
 
 function App() {
   const [todoList,setTodoList] = useState([{}]);
-
   return (
     <div>
     <Todobox>
       <Title>todo하세요~ todo</Title>
       <Inputitem todoList={todoList} setTodoList={setTodoList}/>
-      <Todolist todoList={todoList} setTodoList={setTodoList}/>
+      <Todolist todoList={todoList} setTodoList={setTodoList} isDone={false}/>
     </Todobox>
     <Donebox>
       <Title>해치웠다!</Title>
-      <Donelist todoList={todoList} setTodoList={setTodoList}/>
+      <Todolist todoList={todoList} setTodoList={setTodoList} isDone={true}/>
     </Donebox>
     </div>
   );
