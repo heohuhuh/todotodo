@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from 'styled-components';
 import Todolist from './Todolist';
 import Inputitem from './Inputitem';
-import Donelist from './Donelist';
 
 function App() {
   const [todoList,setTodoList] = useState([{}]);

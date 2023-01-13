@@ -1,15 +1,13 @@
 import styled from "styled-components";
 
 //컴포넌트
-function Todoitem({ todoItem, deleteList, doneList, redoList, isDone }) {
+function Todoitem({ todoItem, deleteList, toggleStatus, isDone }) {
   return (
     <Listline>
       <Tag> {todoItem.todo} </Tag>
-      {isDone ? <RedoButton handleClick={redoList} id={todoItem.id} /> 
+      {isDone ? <RedoButton handleClick={toggleStatus} id={todoItem.id} /> 
       :
-      <DoneButton handleClick={doneList} id={todoItem.id} /> }
-      
-      
+      <DoneButton handleClick={toggleStatus} id={todoItem.id} /> }
       <DeleteButton
         onClick={() => {
           deleteList(todoItem.id);
