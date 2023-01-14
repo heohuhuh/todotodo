@@ -24,12 +24,16 @@ function Inputitem({todoList,setTodoList}){
   return(
       <Itembox>
           <Input onChange={ onChange } onKeyDown={(e)=>{
+              console.log(e)
               if(e.key === "Enter"){
-              addTodo(todo,todoList)
+              addTodo(todo,todoList);
+              setTodo('');
+              e.target.value = 1;
               };
           }} placeholder = "입력하세요~" value={ todo }></Input>
           <Button onClick={()=>{
               addTodo(todo,todoList)
+              setTodo('');
           }}>추가</Button>
           <Button onClick={()=>{
               setTodoList([{}])

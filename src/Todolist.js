@@ -18,9 +18,9 @@ function Todolist({ todoList, setTodoList, isDone }) {
     <div>
       { todoList
             .filter((list) => list.done === isDone)
-            .map((todoItem, i) => 
+            .map((todoItem) => 
               <Todoitem
-              key={i}
+              key={todoItem.id}
               todoItem={todoItem}
               deleteList={deleteList}
               toggleStatus={toggleStatus}
