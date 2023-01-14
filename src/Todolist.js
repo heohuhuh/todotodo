@@ -7,41 +7,41 @@ function Todolist({ todoList, setTodoList, isDone }) {
   };
 
   const toggleStatus = (id) => {
-    const mappedList = todoList.map(item=>{
-        if (item.id === id) return { ...item, done: !item.done }
-        return item;
-    })
+    const mappedList = todoList.map((item) => {
+      if (item.id === id) return { ...item, done: !item.done };
+      return item;
+    });
     setTodoList(mappedList);
   };
 
   return (
     <div>
-      { todoList
-            .filter((list) => list.done === isDone)
-            .map((todoItem) => 
-              <Todoitem
-              key={todoItem.id}
-              todoItem={todoItem}
-              deleteList={deleteList}
-              toggleStatus={toggleStatus}
-              isDone ={isDone}
-            />)
-        }
+      {todoList
+        .filter((list) => list.done === isDone)
+        .map((todoItem) => (
+          <Todoitem
+            key={todoItem.id}
+            todoItem={todoItem}
+            deleteList={deleteList}
+            toggleStatus={toggleStatus}
+            isDone={isDone}
+          />
+        ))}
     </div>
   );
 }
 
 export default Todolist;
 
-function Test(){
-  return 1
+function Test() {
+  return 1;
 }
 
 const a = () => {
-  return 1
-}
-const aResult = a()
-console.log(aResult)
-const b = () => 1
-const bResult = b()
-console.log(bResult)
+  return 1;
+};
+const aResult = a();
+console.log(aResult);
+const b = () => 1;
+const bResult = b();
+console.log(bResult);

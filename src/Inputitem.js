@@ -1,45 +1,58 @@
 import React, { useState } from "react";
-import uuid from "react-uuid"
-import styled from 'styled-components';
+import uuid from "react-uuid";
+import styled from "styled-components";
 
-function Inputitem({todoList,setTodoList}){
-  const [todo,setTodo] = useState('')
+function Inputitem({ todoList, setTodoList }) {
+  const [todo, setTodo] = useState("");
   const onChange = (e) => {
-    setTodo(e.target.value)
+    setTodo(e.target.value);
   };
-  
-  const addTodo = (todo,list) =>{
-      const idNumber = uuid(); //id 번호 부여는 제일 끝 id 번호에 +1해서 꼬임방지
-      const todoValue = {
-        id : idNumber,
-        todo : todo,
-        done : false
-      }
-      if(todo !== ''){        
-          return setTodoList(list.concat(todoValue))
-      }
-      return setTodoList(list)
-    }
 
-  return(
-      <Itembox>
-          <Input onChange={ onChange } onKeyDown={(e)=>{
-              console.log(e)
-              if(e.key === "Enter"){
-              addTodo(todo,todoList);
-              setTodo('');
-              e.target.value = 1;
-              };
-          }} placeholder = "입력하세요~" value={ todo }></Input>
-          <Button onClick={()=>{
-              addTodo(todo,todoList)
-              setTodo('');
-          }}>추가</Button>
-          <Button onClick={()=>{
-              setTodoList([{}])
-          }}>초기화</Button>
-      </Itembox>
-  )
+  const addTodo = (todo, list) => {
+    const idNumber = uuid(); //id 번호 부여는 제일 끝 id 번호에 +1해서 꼬임방지
+    const todoValue = {
+      id: idNumber,
+      todo: todo,
+      done: false,
+    };
+    if (todo !== "") {
+      return setTodoList(list.concat(todoValue));
+    }
+    return setTodoList(list);
+  };
+
+  return (
+    <Itembox>
+      <Input
+        onChange={onChange}
+        onKeyDown={(e) => {
+          console.log(e);
+          if (e.key === "Enter") {
+            addTodo(todo, todoList);
+            setTodo("");
+            e.target.value = 1;
+          }
+        }}
+        placeholder="입력하세요~"
+        value={todo}
+      ></Input>
+      <Button
+        onClick={() => {
+          addTodo(todo, todoList);
+          setTodo("");
+        }}
+      >
+        추가
+      </Button>
+      <Button
+        onClick={() => {
+          setTodoList([{}]);
+        }}
+      >
+        초기화
+      </Button>
+    </Itembox>
+  );
 }
 
 export default Inputitem;
@@ -52,23 +65,23 @@ const Itembox = styled.div`
   top: 42px;
   margin: 5px;
   padding: 5px;
-`
+`;
 const Input = styled.input`
-display: flex;
-flex-direction: column;
-align-items: center;
-  top : 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 60px;
   border-radius: 5px;
   margin: 5px;
   padding: 5px;
   border: 2px solid;
   width: 200px;
-`
+`;
 const Button = styled.button`
   display: flex;
   flex-direction: column;
   align-items: center;
-  top : 60px;
+  top: 60px;
   margin: 5px;
   padding: 5px 10px 5px 10px;
   width: 70px;
@@ -79,4 +92,4 @@ const Button = styled.button`
   color: black;
   background: white;
   cursor: pointer;
-`
+`;
