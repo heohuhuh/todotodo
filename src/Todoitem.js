@@ -43,7 +43,10 @@ const Buttons = ({ buttonClick, isDone }) => {
 
 //스타일
 const Listline = styled.div`
-  background: linear-gradient(to right, #a18cd1 30%, #fbc2eb);
+  border: 3px solid;
+  border-image: linear-gradient(to left, #a18cd1 30%, #fbc2eb);
+  border-image-slice: 1;
+  background: #fff;
   box-shadow: 2px 2px #aaa;
   padding: 1px;
   margin: 3px;
@@ -53,8 +56,8 @@ const Listline = styled.div`
   align-items: center;
 `;
 const Tag = styled.p`
-  text-shadow: 1.5px 1.5px #666;
-  color: #fff;
+  color: black;
+  font-weight: bold;
   font-size: 1rem;
   margin: 3px 10px 3px 10px;
   padding: 5px 90px 5px 5px;
@@ -79,9 +82,6 @@ const DeleteButton = styled.button`
   border-style: none;
 `;
 const StyledRedoButton = styled.button`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   text-shadow: 0.3px 0.3px #666;
   background: none;
   position: absolute;
