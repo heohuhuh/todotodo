@@ -28,6 +28,7 @@ function Inputitem({ todoList, setTodoList }) {
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             addTodo(todo, todoList);
+            setTodo("");
           }
         }}
         placeholder="입력하세요~"
@@ -36,6 +37,7 @@ function Inputitem({ todoList, setTodoList }) {
       <Button
         onClick={() => {
           addTodo(todo, todoList);
+          setTodo("");
         }}
       >
         추가
