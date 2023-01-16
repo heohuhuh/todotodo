@@ -14,6 +14,13 @@ function Todolist({ todoList, setTodoList, isDone }) {
     setTodoList(mappedList);
   };
 
+  const changeTodo = (id, todo) => {
+    const mappedList = todoList.map((item) => {
+      if (item.id === id) return { ...item, todo: todo };
+      return item;
+    });
+    setTodoList(mappedList);
+  };
   return (
     <div>
       {todoList
@@ -24,6 +31,7 @@ function Todolist({ todoList, setTodoList, isDone }) {
             todoItem={todoItem}
             deleteList={deleteList}
             toggleStatus={toggleStatus}
+            changeTodo={changeTodo}
             isDone={isDone}
           />
         ))}
