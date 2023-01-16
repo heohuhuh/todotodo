@@ -32,16 +32,3 @@ function Todolist({ todoList, setTodoList, isDone }) {
 }
 
 export default Todolist;
-
-function Test() {
-  return 1;
-}
-
-const a = () => {
-  return 1;
-};
-const aResult = a();
-console.log(aResult);
-const b = () => 1;
-const bResult = b();
-console.log(bResult);
