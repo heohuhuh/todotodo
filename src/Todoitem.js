@@ -1,25 +1,17 @@
 import styled from "styled-components";
 
 //컴포넌트
-function Todoitem({ todoList, deleteList, doneList }) {
+function Todoitem({ todoItem, deleteList, toggleStatus, isDone }) {
+  function buttonClick() {
+    toggleStatus(todoItem.id);
+  }
   return (
     <Listline>
-      <Tag> {todoList.todo} </Tag>
-      <Checkbox
-        onClick={() => {
-          doneList(todoList.id);
-        }}
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
-        viewBox="0 0 16 16"
-      >
-        <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
-      </Checkbox>
+      <Tag> {todoItem.todo} </Tag>
+      <Buttons buttonClick={buttonClick} isDone={isDone} />
       <DeleteButton
         onClick={() => {
-          deleteList(todoList.id);
+          deleteList(todoItem.id);
         }}
       >
         삭제
@@ -29,6 +21,25 @@ function Todoitem({ todoList, deleteList, doneList }) {
 }
 
 export default Todoitem;
+
+const Buttons = ({ buttonClick, isDone }) => {
+  return isDone ? (
+    <StyledRedoButton onClick={() => buttonClick()}>다시하기</StyledRedoButton>
+  ) : (
+    <Checkbox
+      onClick={() => {
+        buttonClick();
+      }}
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      fill="currentColor"
+      viewBox="0 0 16 16"
+    >
+      <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+    </Checkbox>
+  );
+};
 
 //스타일
 const Listline = styled.div`
@@ -63,6 +74,21 @@ const DeleteButton = styled.button`
   right: 10px;
   color: rgb(139, 0, 0);
   margin: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  border-style: none;
+`;
+const StyledRedoButton = styled.button`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-shadow: 0.3px 0.3px #666;
+  background: none;
+  position: absolute;
+  right: 50px;
+  color: blue;
+  margin: 10px;
+  padding: 0;
   cursor: pointer;
   font-weight: bold;
   border-style: none;

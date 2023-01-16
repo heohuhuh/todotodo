@@ -2,23 +2,25 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Todolist from "./Todolist";
 import Inputitem from "./Inputitem";
-import Donelist from "./Donelist";
 
 function App() {
   const [todoList, setTodoList] = useState([{}]);
-
   return (
     <Correntbox>
-      <TodoTitle>할 일 목록</TodoTitle>
+      <TodoTitle>todo하세요~ todo</TodoTitle>
       <Inputitem todoList={todoList} setTodoList={setTodoList} />
       <Todoline />
       <Todobox>
-        <Todolist todoList={todoList} setTodoList={setTodoList} />
+        <Todolist
+          todoList={todoList}
+          setTodoList={setTodoList}
+          isDone={false}
+        />
       </Todobox>
-      <DoneTitle>한 일</DoneTitle>
+      <DoneTitle>해치웠다!</DoneTitle>
       <Doneline />
       <Donebox>
-        <Donelist todoList={todoList} setTodoList={setTodoList} />
+        <Todolist todoList={todoList} setTodoList={setTodoList} isDone={true} />
       </Donebox>
     </Correntbox>
   );
@@ -93,7 +95,6 @@ const DoneTitle = styled.h2`
   margin: 20px;
   padding: 0px;
 `;
-
 const Doneline = styled.hr`
   position: absolute;
   top: 460px;
@@ -103,7 +104,7 @@ const Doneline = styled.hr`
   height: 2px;
   background: #999;
 `;
-const Donebox = styled.footer`
+const Donebox = styled.div`
   position: absolute;
   top: 470px;
   height: 200px;
