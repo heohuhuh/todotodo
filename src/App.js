@@ -1,25 +1,24 @@
 import React, { useState } from "react";
-import styled from 'styled-components';
-import Todolist from './Todolist';
-import Inputitem from './Inputitem';
-import Donelist from './Donelist';
+import styled from "styled-components";
+import Todolist from "./Todolist";
+import Inputitem from "./Inputitem";
+import Donelist from "./Donelist";
 
 function App() {
-  const [todoList,setTodoList] = useState([{}]);
+  const [todoList, setTodoList] = useState([{}]);
 
   return (
     <Correntbox>
-      <TodoTitle>할 일 목록
-      </TodoTitle>
-      <Inputitem todoList={todoList} setTodoList={setTodoList}/>
-        <Todoline/>
+      <TodoTitle>할 일 목록</TodoTitle>
+      <Inputitem todoList={todoList} setTodoList={setTodoList} />
+      <Todoline />
       <Todobox>
-        <Todolist todoList={todoList} setTodoList={setTodoList}/>
+        <Todolist todoList={todoList} setTodoList={setTodoList} />
       </Todobox>
-        <DoneTitle>한 일</DoneTitle>
-        <Doneline/>
+      <DoneTitle>한 일</DoneTitle>
+      <Doneline />
       <Donebox>
-        <Donelist todoList={todoList} setTodoList={setTodoList}/>
+        <Donelist todoList={todoList} setTodoList={setTodoList} />
       </Donebox>
     </Correntbox>
   );
@@ -28,85 +27,85 @@ function App() {
 export default App;
 
 //스타일
-const Correntbox= styled.div`
+const Correntbox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   position: fixed;
-    top: 50px;
-    left:0;
-    right: 0;
-    bottom: 0;
+  top: 50px;
+  left: 0;
+  right: 0;
+  bottom: 0;
   overflow: overlay;
   margin: 0px;
-  padding: 0px; 
+  padding: 0px;
   &::-webkit-scrollbar {
-    background:none;
-    width:5px;
-  }  
+    background: none;
+    width: 5px;
+  }
   &::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.3);
     border-radius: 3px;
   }
-`
+`;
 const TodoTitle = styled.h2`
   font-size: 32px;
-  font-weight : bold;
+  font-weight: bold;
   position: absolute;
-    top: 0;
+  top: 0;
   margin: 0px;
   padding: 0px;
-`
+`;
 
 const Todoline = styled.hr`
-  position: absolute; 
-    top:  90px;
+  position: absolute;
+  top: 90px;
   margin: 5px;
   border: none;
   width: 400px;
   height: 2px;
   background: #999;
-`
-const Todobox= styled.div`
+`;
+const Todobox = styled.div`
   position: absolute;
-    top: 100px;
+  top: 100px;
   width: 400px;
   height: 300px;
   overflow: overlay;
   margin: 0px;
-  padding: 5px; 
+  padding: 5px;
   //background: linear-gradient( to top , #ff9a9e  , #fad0c4);
   border-radius: 10px;
   &::-webkit-scrollbar {
-    background:none;
-    width:5px;
-  }  
+    background: none;
+    width: 5px;
+  }
   &::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.5);
     border-radius: 3px;
   }
-`
+`;
 const DoneTitle = styled.h2`
   font-size: 24px;
-  font-weight : bold;
+  font-weight: bold;
   position: absolute;
-    top: 410px;
+  top: 410px;
   margin: 20px;
   padding: 0px;
-`
+`;
 
 const Doneline = styled.hr`
-  position: absolute; 
-    top:  460px;
+  position: absolute;
+  top: 460px;
   margin: 5px;
   border: none;
   width: 400px;
   height: 2px;
   background: #999;
-`
+`;
 const Donebox = styled.footer`
   position: absolute;
-    top:470px;
+  top: 470px;
   height: 200px;
   width: 400px;
   overflow: overlay;
@@ -115,11 +114,11 @@ const Donebox = styled.footer`
   //background: linear-gradient( to top , #ff9a9e 30% , #fad0c4);
   border-radius: 10px;
   &::-webkit-scrollbar {
-    background:none;
-    width:5px;
-  }  
+    background: none;
+    width: 5px;
+  }
   &::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.5);
     border-radius: 3px;
   }
-`
+`;
