@@ -26,11 +26,9 @@ function Inputitem({ todoList, setTodoList }) {
       <Input
         onChange={onChange}
         onKeyDown={(e) => {
-          console.log(e);
           if (e.key === "Enter") {
             addTodo(todo, todoList);
             setTodo("");
-            e.target.value = 1;
           }
         }}
         placeholder="입력하세요~"
