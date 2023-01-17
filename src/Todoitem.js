@@ -1,54 +1,52 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 
 //컴포넌트
 function Todoitem({ todoItem, deleteList, changeTodoStatus, isDone }) {
   const [todo, setTodo] = useState("");
+  const [inputStatus, setInputStatus] = useState(false);
   const onChange = (e) => {
     setTodo(e.target.value);
   };
-  const [todoTag, setTodoTag] = useState(true);
+
   function buttonClick() {
     changeTodoStatus(todoItem.id);
   }
-  const test = useRef(null);
+  function toggleInputStatus() {
+    setInputStatus(!inputStatus);
+  }
+
+  const todoInsert = () => {
+    if (inputStatus && todo !== "") {
+      changeTodoStatus(todoItem.id, todo);
+      setTodo("");
+    }
+    setInputStatus(false);
+  };
+  const inputFocus = useRef(null);
+
+  useEffect(() => {
+    if (inputStatus) inputFocus.current.focus();
+  });
 
   return (
     <Listline>
-      <ChangeTodoButton
-        onClick={() => {
-          setTodoTag(!todoTag);
-          test.current.focus();
-        }}
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
-        class="bi bi-pencil"
-        viewBox="0 0 16 16"
-      >
-        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-      </ChangeTodoButton>
-      <Todo todoTag={todoTag}> {todoItem.todo} </Todo>
+      <ChangeButton toggleInputStatus={toggleInputStatus} isDone={isDone} />
+      <Todo inputStatus={inputStatus}> {todoItem.todo} </Todo>
       <ChangeTodoInput
-        ref={test}
-        todoTag={todoTag}
+        inputStatus={inputStatus}
         onChange={onChange}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            changeTodoStatus(todoItem.id, todo);
-            setTodoTag(true);
+            todoInsert();
           }
         }}
         onBlur={() => {
-          if (todo !== "") {
-            changeTodoStatus(todoItem.id, todo);
-            setTodo("");
-            setTodoTag(true);
-          }
+          todoInsert();
         }}
         placeholder={todoItem.todo}
         value={todo}
+        ref={inputFocus}
       />
       <Buttons buttonClick={buttonClick} isDone={isDone} />
       <DeleteButton
@@ -63,6 +61,26 @@ function Todoitem({ todoItem, deleteList, changeTodoStatus, isDone }) {
 }
 
 export default Todoitem;
+
+const ChangeButton = ({ toggleInputStatus, isDone }) => {
+  return isDone ? (
+    ""
+  ) : (
+    <ChangeTodoButton
+      onClick={() => {
+        toggleInputStatus();
+      }}
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      fill="currentColor"
+      class="bi bi-pencil"
+      viewBox="0 0 16 16"
+    >
+      <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+    </ChangeTodoButton>
+  );
+};
 
 const Buttons = ({ buttonClick, isDone }) => {
   return isDone ? (
@@ -103,13 +121,13 @@ const Todo = styled.p`
   font-size: 1rem;
   margin: 0;
   padding: 0;
-  display: ${({ todoTag }) => !todoTag && "none"};
+  display: ${({ inputStatus }) => inputStatus && "none"};
 `;
 const ChangeTodoButton = styled.svg`
   background: none;
   color: gray;
   margin: 0;
-  padding: 10px;
+  padding: 0 5px;
   cursor: pointer;
 `;
 const ChangeTodoInput = styled.input`
@@ -120,7 +138,7 @@ const ChangeTodoInput = styled.input`
   margin: 0;
   padding: 0;
   border: none;
-  display: ${({ todoTag }) => todoTag && "none"};
+  display: ${({ inputStatus }) => !inputStatus && "none"};
 `;
 const Checkbox = styled.svg`
   margin: 0;
