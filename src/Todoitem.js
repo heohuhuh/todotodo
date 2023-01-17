@@ -2,14 +2,14 @@ import React, { useRef, useState } from "react";
 import styled from "styled-components";
 
 //컴포넌트
-function Todoitem({ todoItem, deleteList, toggleStatus, changeTodo, isDone }) {
+function Todoitem({ todoItem, deleteList, changeTodoStatus, isDone }) {
   const [todo, setTodo] = useState("");
   const onChange = (e) => {
     setTodo(e.target.value);
   };
   const [todoTag, setTodoTag] = useState(true);
   function buttonClick() {
-    toggleStatus(todoItem.id);
+    changeTodoStatus(todoItem.id);
   }
   const test = useRef(null);
   //눌리면 태그 위치에 인덱스를 생성하고 인덱스엔 원래 값이 있음 인덱스가 비활성화되거나 엔터가 눌리면 비활성화시켜서 입력한 값으로 태그가 바뀜
@@ -37,7 +37,7 @@ function Todoitem({ todoItem, deleteList, toggleStatus, changeTodo, isDone }) {
         onKeyDown={(e) => {
           console.log(e);
           if (e.key === "Enter") {
-            changeTodo(todoItem.id, todo);
+            changeTodoStatus(todoItem.id, todo);
             setTodo("");
             setTodoTag(!todoTag);
           }
