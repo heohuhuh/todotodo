@@ -2,7 +2,13 @@ import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 
 //컴포넌트
-function Todoitem({ todoItem, deleteList, changeTodoStatus, isDone }) {
+function Todoitem({
+  todoItem,
+  deleteList,
+  changeTodoStatus,
+  changeTodo,
+  isDone,
+}) {
   const [todo, setTodo] = useState("");
   const [inputStatus, setInputStatus] = useState(false);
   const onChange = (e) => {
@@ -18,7 +24,7 @@ function Todoitem({ todoItem, deleteList, changeTodoStatus, isDone }) {
 
   const todoInsert = () => {
     if (inputStatus && todo !== "") {
-      changeTodoStatus(todoItem.id, todo);
+      changeTodo(todoItem.id, todo);
       setTodo("");
     }
     setInputStatus(false);
