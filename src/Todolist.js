@@ -6,9 +6,12 @@ function Todolist({ todoList, setTodoList, isDone }) {
     setTodoList(deletedList);
   };
 
-  const toggleStatus = (id) => {
+  const changeTodoStatus = (id, todo) => {
     const mappedList = todoList.map((item) => {
-      if (item.id === id) return { ...item, done: !item.done };
+      if (item.id === id) {
+        if (todo !== undefined) return { ...item, todo: todo };
+        return { ...item, done: !item.done };
+      }
       return item;
     });
     setTodoList(mappedList);
@@ -23,7 +26,7 @@ function Todolist({ todoList, setTodoList, isDone }) {
             key={todoItem.id}
             todoItem={todoItem}
             deleteList={deleteList}
-            toggleStatus={toggleStatus}
+            changeTodoStatus={changeTodoStatus}
             isDone={isDone}
           />
         ))}
