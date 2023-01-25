@@ -4,7 +4,15 @@ import Todolist from "./Todolist";
 import Inputitem from "./Inputitem";
 
 function App() {
-  const [todoList, setTodoList] = useState([{}]);
+  var firstTodoList = localStorage.getItem("todolist");
+  if (firstTodoList == null) {
+    firstTodoList = [{}];
+  } else {
+    firstTodoList = JSON.parse(firstTodoList);
+  }
+  const [todoList, setTodoList] = useState(firstTodoList);
+
+  localStorage.setItem("todolist", JSON.stringify(todoList));
   return (
     <Correntbox>
       <TodoTitle>todo하세요~ todo</TodoTitle>
