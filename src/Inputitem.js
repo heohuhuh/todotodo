@@ -17,7 +17,7 @@ function Inputitem({ todoList, setTodoList }) {
       };
       localStorage.setItem(idNumber, JSON.stringify(todoValue));
       todoValue.id = idNumber;
-      setTodoList(list.concat(todoValue));
+      setTodoList([...list].concat(todoValue));
     }
   };
 

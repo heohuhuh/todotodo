@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Todolist from "./Todolist";
 import Inputitem from "./Inputitem";
 
-let firstTodoList = [];
-if (localStorage.length !== 0) {
-  firstTodoList = getTodoList();
-}
 function App() {
-  const [todoList, setTodoList] = useState(firstTodoList);
+  const [todoList, setTodoList] = useState([]);
 
+  useEffect(() => {
+    if (localStorage.length !== 0) {
+      const readyTodoList = getTodoList();
+      setTodoList(readyTodoList);
+    }
+  }, []);
   return (
     <Correntbox>
       <TodoTitle>todo하세요~ todo</TodoTitle>
