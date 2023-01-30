@@ -3,18 +3,31 @@ import Todoitem from "./Todoitem";
 function Todolist({ todoList, setTodoList, isDone }) {
   const deleteList = (id) => {
     const deletedList = todoList.filter((todoList) => todoList.id !== id);
+    localStorage.removeItem(id);
     setTodoList(deletedList);
   };
 
   const changeTodoStatus = (id, todo) => {
     const mappedList = todoList.map((item) => {
       if (item.id === id) {
-        if (todo !== undefined) return { ...item, todo: todo };
-        return { ...item, done: !item.done };
+        let setItem = item;
+        if (todo !== undefined) {
+          setItem = { ...item, todo: todo };
+        } else {
+          setItem = { ...item, done: !item.done };
+        }
+        addInlocalStorage(id, setItem);
+        return setItem;
       }
       return item;
     });
     setTodoList(mappedList);
+  };
+
+  const addInlocalStorage = (id, list) => {
+    let setItem = { ...list };
+    delete setItem.id;
+    localStorage.setItem(JSON.stringify(id), JSON.stringify(setItem));
   };
 
   return (

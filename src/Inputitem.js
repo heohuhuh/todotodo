@@ -9,16 +9,16 @@ function Inputitem({ todoList, setTodoList }) {
   };
 
   const addTodo = (todo, list) => {
-    const idNumber = uuid(); //id 번호 부여는 제일 끝 id 번호에 +1해서 꼬임방지
-    const todoValue = {
-      id: idNumber,
-      todo: todo,
-      done: false,
-    };
     if (todo !== "") {
-      return setTodoList(list.concat(todoValue));
+      const idNumber = uuid();
+      const todoValue = {
+        todo: todo,
+        done: false,
+      };
+      localStorage.setItem(idNumber, JSON.stringify(todoValue));
+      todoValue.id = idNumber;
+      setTodoList(list.concat(todoValue));
     }
-    return setTodoList(list);
   };
 
   return (
@@ -44,7 +44,8 @@ function Inputitem({ todoList, setTodoList }) {
       </Button>
       <Button
         onClick={() => {
-          setTodoList([{}]);
+          setTodoList([]);
+          localStorage.clear();
         }}
       >
         초기화

@@ -2,17 +2,28 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Todolist from "./Todolist";
 import Inputitem from "./Inputitem";
-
+function getTodoList() {
+  //console.log(localStorage);
+  const firstTodoList = Object.keys(localStorage);
+  const localStorageList = firstTodoList.map((id) => {
+    const getLocalStorage = JSON.parse(localStorage.getItem(id));
+    return {
+      id: id,
+      ...getLocalStorage,
+    };
+  });
+  //console.log(localStorageList);
+  return localStorageList;
+}
+let firstTodoList = [];
+console.log("test");
+if (localStorage.length !== 0) {
+  console.log("test");
+  firstTodoList = getTodoList();
+}
 function App() {
-  var firstTodoList = localStorage.getItem("todolist");
-  if (firstTodoList == null) {
-    firstTodoList = [{}];
-  } else {
-    firstTodoList = JSON.parse(firstTodoList);
-  }
   const [todoList, setTodoList] = useState(firstTodoList);
 
-  localStorage.setItem("todolist", JSON.stringify(todoList));
   return (
     <Correntbox>
       <TodoTitle>todo하세요~ todo</TodoTitle>
