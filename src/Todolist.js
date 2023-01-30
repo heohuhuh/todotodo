@@ -27,7 +27,7 @@ function Todolist({ todoList, setTodoList, isDone }) {
   const addInlocalStorage = (id, list) => {
     let setItem = { ...list };
     delete setItem.id;
-    localStorage.setItem(JSON.stringify(id), JSON.stringify(setItem));
+    localStorage.setItem(id, JSON.stringify(setItem));
   };
 
   return (
