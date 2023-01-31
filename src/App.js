@@ -10,13 +10,13 @@ function App() {
   useEffect(() => {
     todoData.length().then((length) => {
       if (length !== 0) {
-        getTodoList2(todoData, setTodoList);
+        getTodoList(todoData, setTodoList);
       }
     });
   }, []);
   return (
     <Correntbox>
-      <TodoTitle>todo하세요~ todo</TodoTitle>
+      <TodoTitle>할 일 목록</TodoTitle>
       <Inputitem
         todoList={todoList}
         setTodoList={setTodoList}
@@ -31,7 +31,7 @@ function App() {
           todoData={todoData}
         />
       </Todobox>
-      <DoneTitle>해치웠다!</DoneTitle>
+      <DoneTitle>해치운 목록</DoneTitle>
       <Doneline />
       <Donebox>
         <Todolist
@@ -47,7 +47,7 @@ function App() {
 
 export default App;
 
-const getTodoList2 = (todoData, setTodoList) => {
+const getTodoList = (todoData, setTodoList) => {
   todoData.keys().then((keys) => {
     let startTodo = [];
     for (let i = 0; i < keys.length; i++) {

@@ -9,24 +9,19 @@ function Todolist({ todoList, setTodoList, isDone, todoData }) {
 
   const changeTodoStatus = (id, todo) => {
     const cloneTodoList = [...todoList];
-    for (let i = 0; i < cloneTodoList.length; i++) {
-      if (cloneTodoList[i].id === id) {
-        if (todo !== undefined) {
-          cloneTodoList[i].todo = todo;
-          addInStorage(cloneTodoList, id, cloneTodoList[i]);
-          break;
-        } else {
-          cloneTodoList[i].done = !cloneTodoList[i].done;
-          addInStorage(cloneTodoList, id, cloneTodoList[i]);
-          break;
-        }
-      }
+    const changeItem = cloneTodoList.filter((list) => list.id === id);
+    if (todo !== undefined) {
+      changeItem[0].todo = todo;
+    } else {
+      changeItem[0].done = !changeItem[0].done;
     }
+    addInStorage(cloneTodoList, id, changeItem[0]);
   };
-  const addInStorage = (cloneTodoList, id, selectedList) => {
-    const setTodoItem = { ...selectedList };
-    delete setTodoItem.id;
-    todoData.setItem(id, setTodoItem).then(() => {
+
+  const addInStorage = (cloneTodoList, id, changeItem) => {
+    const item = { ...changeItem };
+    delete item.id;
+    todoData.setItem(id, item).then(() => {
       setTodoList(cloneTodoList);
     });
   };

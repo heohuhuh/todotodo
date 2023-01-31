@@ -7,16 +7,18 @@ function Inputitem({ todoList, setTodoList, todoData }) {
   const onChange = (e) => {
     setTodo(e.target.value);
   };
-  const addTodo = (todo, list) => {
+  const addTodo = () => {
     if (todo !== "") {
       const idNumber = uuid();
       const todoValue = {
+        //id는 storage에 따로 저장 후에 추가하려고 여기에 없음!
         todo: todo,
         done: false,
       };
       todoData.setItem(idNumber, todoValue).then(() => {
         todoValue.id = idNumber;
-        setTodoList([...list].concat(todoValue));
+        setTodoList([...todoList].concat(todoValue));
+        setTodo("");
       });
     }
   };
@@ -26,8 +28,7 @@ function Inputitem({ todoList, setTodoList, todoData }) {
         onChange={onChange}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            addTodo(todo, todoList);
-            setTodo("");
+            addTodo();
           }
         }}
         placeholder="입력하세요~"
@@ -35,16 +36,16 @@ function Inputitem({ todoList, setTodoList, todoData }) {
       ></Input>
       <Button
         onClick={() => {
-          addTodo(todo, todoList);
-          setTodo("");
+          addTodo();
         }}
       >
         추가
       </Button>
       <Button
         onClick={() => {
-          setTodoList([]);
-          localStorage.clear();
+          todoData.clear().then(() => {
+            setTodoList([]);
+          });
         }}
       >
         초기화
