@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import uuid from "react-uuid";
 import styled from "styled-components";
 
-function Inputitem({ todoList, setTodoList }) {
+function Inputitem({ todoList, setTodoList, todoData }) {
+  console.log(todoData);
   const [todo, setTodo] = useState("");
   const onChange = (e) => {
     setTodo(e.target.value);
   };
-
   const addTodo = (todo, list) => {
     if (todo !== "") {
       const idNumber = uuid();
@@ -15,12 +15,12 @@ function Inputitem({ todoList, setTodoList }) {
         todo: todo,
         done: false,
       };
-      localStorage.setItem(idNumber, JSON.stringify(todoValue));
-      todoValue.id = idNumber;
-      setTodoList([...list].concat(todoValue));
+      todoData.setItem(idNumber, todoValue).then(() => {
+        todoValue.id = idNumber;
+        setTodoList([...list].concat(todoValue));
+      });
     }
   };
-
   return (
     <Itembox>
       <Input

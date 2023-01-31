@@ -2,32 +2,46 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Todolist from "./Todolist";
 import Inputitem from "./Inputitem";
+import localforage from "localforage";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
-
+  var todoData;
   useEffect(() => {
-    if (localStorage.length !== 0) {
-      const readyTodoList = getTodoList();
-      setTodoList(readyTodoList);
-    }
+    todoData = localforage.createInstance({ name: "todoData" });
+    todoData.length().then((length) => {
+      if (length !== 0) {
+        getTodoList2(todoData, setTodoList);
+      }
+    });
   }, []);
+
   return (
     <Correntbox>
       <TodoTitle>todo하세요~ todo</TodoTitle>
-      <Inputitem todoList={todoList} setTodoList={setTodoList} />
+      <Inputitem
+        todoList={todoList}
+        setTodoList={setTodoList}
+        todoData={todoData}
+      />
       <Todoline />
       <Todobox>
         <Todolist
           todoList={todoList}
           setTodoList={setTodoList}
           isDone={false}
+          todoData={todoData}
         />
       </Todobox>
       <DoneTitle>해치웠다!</DoneTitle>
       <Doneline />
       <Donebox>
-        <Todolist todoList={todoList} setTodoList={setTodoList} isDone={true} />
+        <Todolist
+          todoList={todoList}
+          setTodoList={setTodoList}
+          isDone={true}
+          todoData={todoData}
+        />
       </Donebox>
     </Correntbox>
   );
@@ -35,17 +49,19 @@ function App() {
 
 export default App;
 
-function getTodoList() {
-  const firstTodoList = Object.keys(localStorage);
-  const localStorageList = firstTodoList.map((id) => {
-    const getLocalStorage = JSON.parse(localStorage.getItem(id));
-    return {
-      id: id,
-      ...getLocalStorage,
-    };
+const getTodoList2 = (todoData, setTodoList) => {
+  todoData.keys().then((keys) => {
+    let startTodo = [];
+    for (let i = 0; i < keys.length; i++) {
+      todoData.getItem(keys[i], (err, value) => {
+        startTodo = [...startTodo, { id: keys[i], ...value }];
+        if (i === keys.length - 1) {
+          setTodoList(startTodo);
+        }
+      });
+    }
   });
-  return localStorageList;
-}
+};
 //스타일
 const Correntbox = styled.div`
   display: flex;

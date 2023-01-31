@@ -1,33 +1,35 @@
 import Todoitem from "./Todoitem";
+import localforage from "localforage";
 
-function Todolist({ todoList, setTodoList, isDone }) {
+function Todolist({ todoList, setTodoList, isDone, todoData }) {
   const deleteList = (id) => {
     const deletedList = todoList.filter((todoList) => todoList.id !== id);
-    localStorage.removeItem(id);
+    todoData.removeItem(id);
     setTodoList(deletedList);
   };
 
   const changeTodoStatus = (id, todo) => {
-    const mappedList = todoList.map((item) => {
-      if (item.id === id) {
-        let setItem = item;
+    const setTodoList = [...todoList];
+    for (i = 0; i < setTodoList.length; i++) {
+      if (setTodoList[i].id === id) {
         if (todo !== undefined) {
-          setItem = { ...item, todo: todo };
+          setTodoList[i] = { ...item, todo: todo };
+          addInStorage(setTodoList, id, setTodoList[i]);
+          break;
         } else {
-          setItem = { ...item, done: !item.done };
+          setTodoList[i] = { ...item, done: !item.done };
+          addInStorage(setTodoList, id, setTodoList[i]);
+          break;
         }
-        addInlocalStorage(id, setItem);
-        return setItem;
       }
-      return item;
-    });
-    setTodoList(mappedList);
+    }
   };
-
-  const addInlocalStorage = (id, list) => {
-    let setItem = { ...list };
-    delete setItem.id;
-    localStorage.setItem(id, JSON.stringify(setItem));
+  const addInStorage = (setTodoList, id, selectedList) => {
+    const setTodoItem = { ...selectedList };
+    delete setTodoItem.id;
+    todoData.setItem(id, setTodoItem).then(() => {
+      setTodoList(setTodoList);
+    });
   };
 
   return (
