@@ -6,16 +6,14 @@ import localforage from "localforage";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
-  var todoData;
+  const todoData = localforage.createInstance({ name: "todoData" });
   useEffect(() => {
-    todoData = localforage.createInstance({ name: "todoData" });
     todoData.length().then((length) => {
       if (length !== 0) {
         getTodoList2(todoData, setTodoList);
       }
     });
   }, []);
-
   return (
     <Correntbox>
       <TodoTitle>todo하세요~ todo</TodoTitle>

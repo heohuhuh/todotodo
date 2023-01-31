@@ -1,5 +1,4 @@
 import Todoitem from "./Todoitem";
-import localforage from "localforage";
 
 function Todolist({ todoList, setTodoList, isDone, todoData }) {
   const deleteList = (id) => {
@@ -9,26 +8,26 @@ function Todolist({ todoList, setTodoList, isDone, todoData }) {
   };
 
   const changeTodoStatus = (id, todo) => {
-    const setTodoList = [...todoList];
-    for (i = 0; i < setTodoList.length; i++) {
-      if (setTodoList[i].id === id) {
+    const cloneTodoList = [...todoList];
+    for (let i = 0; i < cloneTodoList.length; i++) {
+      if (cloneTodoList[i].id === id) {
         if (todo !== undefined) {
-          setTodoList[i] = { ...item, todo: todo };
-          addInStorage(setTodoList, id, setTodoList[i]);
+          cloneTodoList[i].todo = todo;
+          addInStorage(cloneTodoList, id, cloneTodoList[i]);
           break;
         } else {
-          setTodoList[i] = { ...item, done: !item.done };
-          addInStorage(setTodoList, id, setTodoList[i]);
+          cloneTodoList[i].done = !cloneTodoList[i].done;
+          addInStorage(cloneTodoList, id, cloneTodoList[i]);
           break;
         }
       }
     }
   };
-  const addInStorage = (setTodoList, id, selectedList) => {
+  const addInStorage = (cloneTodoList, id, selectedList) => {
     const setTodoItem = { ...selectedList };
     delete setTodoItem.id;
     todoData.setItem(id, setTodoItem).then(() => {
-      setTodoList(setTodoList);
+      setTodoList(cloneTodoList);
     });
   };
 

@@ -3,7 +3,6 @@ import uuid from "react-uuid";
 import styled from "styled-components";
 
 function Inputitem({ todoList, setTodoList, todoData }) {
-  console.log(todoData);
   const [todo, setTodo] = useState("");
   const onChange = (e) => {
     setTodo(e.target.value);
