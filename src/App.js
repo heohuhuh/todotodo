@@ -7,13 +7,22 @@ import localforage from "localforage";
 function App() {
   const [todoList, setTodoList] = useState([]);
   const todoData = localforage.createInstance({ name: "todoData" });
+  const getTodoList = async () => {
+    const keys = await todoData.keys();
+    const items = await Promise.all(
+      keys.map((key) => {
+        return todoData.getItem(key);
+      })
+    );
+    return items;
+  };
+
   useEffect(() => {
-    todoData.length().then((length) => {
-      if (length !== 0) {
-        getTodoList(todoData, setTodoList);
-      }
+    getTodoList().then((result) => {
+      setTodoList(result);
     });
   }, []);
+
   return (
     <Correntbox>
       <TodoTitle>할 일 목록</TodoTitle>
@@ -47,19 +56,6 @@ function App() {
 
 export default App;
 
-const getTodoList = (todoData, setTodoList) => {
-  todoData.keys().then((keys) => {
-    let startTodo = [];
-    for (let i = 0; i < keys.length; i++) {
-      todoData.getItem(keys[i], (err, value) => {
-        startTodo = [...startTodo, { id: keys[i], ...value }];
-        if (i === keys.length - 1) {
-          setTodoList(startTodo);
-        }
-      });
-    }
-  });
-};
 //스타일
 const Correntbox = styled.div`
   display: flex;
