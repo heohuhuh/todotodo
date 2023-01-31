@@ -2,20 +2,10 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Todolist from "./Todolist";
 import Inputitem from "./Inputitem";
-import localforage from "localforage";
+import getTodoList from "./localforage";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
-  const todoData = localforage.createInstance({ name: "todoData" });
-  const getTodoList = async () => {
-    const keys = await todoData.keys();
-    const items = await Promise.all(
-      keys.map((key) => {
-        return todoData.getItem(key);
-      })
-    );
-    return items;
-  };
 
   useEffect(() => {
     getTodoList().then((result) => {
