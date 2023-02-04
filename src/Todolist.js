@@ -1,7 +1,7 @@
 import Todoitem from "./Todoitem";
-import { addTodoListDB, deleteListDB } from "./localforage";
+import { setTodoListDB, deleteListDB } from "./localforage";
 
-function Todolist({ todoList, setTodoList, isDone, todoData }) {
+function Todolist({ todoList, setTodoList, isDone }) {
   const deleteList = (id) => {
     const deletedList = todoList.filter((todoList) => todoList.id !== id);
     deleteListDB(id).then(() => {
@@ -17,7 +17,7 @@ function Todolist({ todoList, setTodoList, isDone, todoData }) {
     } else {
       changeItem[0].done = !changeItem[0].done;
     }
-    addTodoListDB(changeItem[0]).then(() => {
+    setTodoListDB(changeItem[0]).then(() => {
       setTodoList(cloneTodoList);
     });
   };

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import uuid from "react-uuid";
 import styled from "styled-components";
-import { addTodoListDB, clearTodoListDB } from "./localforage";
+import { setTodoListDB, clearTodoListDB } from "./localforage";
 
 function Inputitem({ todoList, setTodoList }) {
   const [todo, setTodo] = useState("");
@@ -16,7 +16,7 @@ function Inputitem({ todoList, setTodoList }) {
         todo: todo,
         done: false,
       };
-      addTodoListDB(todoValue).then(() => {
+      setTodoListDB(todoValue).then(() => {
         setTodoList([...todoList].concat(todoValue));
         setTodo("");
       });
