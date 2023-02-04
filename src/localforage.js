@@ -13,6 +13,7 @@ export const getTodoList = async () => {
 };
 
 export const addTodoList = async (todo) => {
-  const todoValue = delete { ...todo }.id;
+  const todoValue = { ...todo };
+  delete todoValue.id;
   todoData.setItem(todo.id, todoValue);
 };
