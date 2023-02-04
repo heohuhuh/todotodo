@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Todolist from "./Todolist";
 import Inputitem from "./Inputitem";
-import getTodoList from "./localforage";
+import { getTodoList } from "./localforage";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
-
   useEffect(() => {
     getTodoList().then((result) => {
+      console.log(result);
       setTodoList(result);
     });
   }, []);
@@ -16,29 +16,19 @@ function App() {
   return (
     <Correntbox>
       <TodoTitle>할 일 목록</TodoTitle>
-      <Inputitem
-        todoList={todoList}
-        setTodoList={setTodoList}
-        todoData={todoData}
-      />
+      <Inputitem todoList={todoList} setTodoList={setTodoList} />
       <Todoline />
       <Todobox>
         <Todolist
           todoList={todoList}
           setTodoList={setTodoList}
           isDone={false}
-          todoData={todoData}
         />
       </Todobox>
       <DoneTitle>해치운 목록</DoneTitle>
       <Doneline />
       <Donebox>
-        <Todolist
-          todoList={todoList}
-          setTodoList={setTodoList}
-          isDone={true}
-          todoData={todoData}
-        />
+        <Todolist todoList={todoList} setTodoList={setTodoList} isDone={true} />
       </Donebox>
     </Correntbox>
   );

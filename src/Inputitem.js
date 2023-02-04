@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import uuid from "react-uuid";
 import styled from "styled-components";
+import { addTodoList } from "./localforage";
 
 function Inputitem({ todoList, setTodoList, todoData }) {
   const [todo, setTodo] = useState("");
@@ -11,12 +12,11 @@ function Inputitem({ todoList, setTodoList, todoData }) {
     if (todo !== "") {
       const idNumber = uuid();
       const todoValue = {
-        //id는 storage에 따로 저장 후에 추가하려고 여기에 없음!
+        id: idNumber,
         todo: todo,
         done: false,
       };
-      todoData.setItem(idNumber, todoValue).then(() => {
-        todoValue.id = idNumber;
+      addTodoList(todoValue).then(() => {
         setTodoList([...todoList].concat(todoValue));
         setTodo("");
       });
