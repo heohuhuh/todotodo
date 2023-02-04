@@ -1,7 +1,7 @@
 import localforage from "localforage";
 
 const todoData = localforage.createInstance({ name: "todoData" });
-localforage.clear();
+
 export const getTodoList = async () => {
   const keys = await todoData.keys();
   const items = await Promise.all(
@@ -15,5 +15,9 @@ export const getTodoList = async () => {
 export const addTodoList = async (todo) => {
   const todoValue = { ...todo };
   delete todoValue.id;
-  todoData.setItem(todo.id, todoValue);
+  await todoData.setItem(todo.id, todoValue);
+};
+
+export const clearTodoList = async () => {
+  await todoData.clear();
 };
