@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import uuid from "react-uuid";
 import styled from "styled-components";
-import { addTodoList, clearTodoList } from "./localforage";
+import { addTodoListDB, clearTodoListDB } from "./localforage";
 
-function Inputitem({ todoList, setTodoList, todoData }) {
+function Inputitem({ todoList, setTodoList }) {
   const [todo, setTodo] = useState("");
   const onChange = (e) => {
     setTodo(e.target.value);
@@ -16,7 +16,7 @@ function Inputitem({ todoList, setTodoList, todoData }) {
         todo: todo,
         done: false,
       };
-      addTodoList(todoValue).then(() => {
+      addTodoListDB(todoValue).then(() => {
         setTodoList([...todoList].concat(todoValue));
         setTodo("");
       });
@@ -43,7 +43,7 @@ function Inputitem({ todoList, setTodoList, todoData }) {
       </Button>
       <Button
         onClick={() => {
-          clearTodoList().then(() => {
+          clearTodoListDB().then(() => {
             setTodoList([]);
           });
         }}

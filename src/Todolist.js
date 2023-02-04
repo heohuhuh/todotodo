@@ -1,4 +1,5 @@
 import Todoitem from "./Todoitem";
+import { addTodoListDB, deleteListDB } from "./localforage";
 
 function Todolist({ todoList, setTodoList, isDone, todoData }) {
   const deleteList = (id) => {
@@ -15,13 +16,7 @@ function Todolist({ todoList, setTodoList, isDone, todoData }) {
     } else {
       changeItem[0].done = !changeItem[0].done;
     }
-    addInStorage(cloneTodoList, id, changeItem[0]);
-  };
-
-  const addInStorage = (cloneTodoList, id, changeItem) => {
-    const item = { ...changeItem };
-    delete item.id;
-    todoData.setItem(id, item).then(() => {
+    addTodoListDB(changeItem[0]).then(() => {
       setTodoList(cloneTodoList);
     });
   };

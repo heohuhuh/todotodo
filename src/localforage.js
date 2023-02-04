@@ -2,7 +2,7 @@ import localforage from "localforage";
 
 const todoData = localforage.createInstance({ name: "todoData" });
 
-export const getTodoList = async () => {
+export const getTodoListDB = async () => {
   const keys = await todoData.keys();
   const items = await Promise.all(
     keys.map((key) => {
@@ -12,12 +12,12 @@ export const getTodoList = async () => {
   return items;
 };
 
-export const addTodoList = async (todo) => {
+export const addTodoListDB = async (todo) => {
   const todoValue = { ...todo };
   delete todoValue.id;
   await todoData.setItem(todo.id, todoValue);
 };
 
-export const clearTodoList = async () => {
+export const clearTodoListDB = async () => {
   await todoData.clear();
 };

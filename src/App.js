@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Todolist from "./Todolist";
 import Inputitem from "./Inputitem";
-import { getTodoList } from "./localforage";
+import { getTodoListDB } from "./localforage";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
   useEffect(() => {
-    getTodoList().then((result) => {
+    getTodoListDB().then((result) => {
       setTodoList(result);
     });
   }, []);
