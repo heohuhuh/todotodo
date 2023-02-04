@@ -21,3 +21,7 @@ export const addTodoListDB = async (todo) => {
 export const clearTodoListDB = async () => {
   await todoData.clear();
 };
+
+export const deleteListDB = async (id) => {
+  await todoData.removeItem(id);
+};

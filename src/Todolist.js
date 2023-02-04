@@ -4,8 +4,9 @@ import { addTodoListDB, deleteListDB } from "./localforage";
 function Todolist({ todoList, setTodoList, isDone, todoData }) {
   const deleteList = (id) => {
     const deletedList = todoList.filter((todoList) => todoList.id !== id);
-    todoData.removeItem(id);
-    setTodoList(deletedList);
+    deleteListDB(id).then(() => {
+      setTodoList(deletedList);
+    });
   };
 
   const changeTodoStatus = (id, todo) => {
