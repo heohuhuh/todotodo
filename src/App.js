@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Todolist from "./Todolist";
 import Inputitem from "./Inputitem";
+import { getTodoListDB } from "./localforage";
 
 function App() {
-  const [todoList, setTodoList] = useState([{}]);
+  const [todoList, setTodoList] = useState([]);
+  useEffect(() => {
+    getTodoListDB().then((result) => {
+      setTodoList(result);
+    });
+  }, []);
+
   return (
     <Correntbox>
-      <TodoTitle>todo하세요~ todo</TodoTitle>
+      <TodoTitle>할 일 목록</TodoTitle>
       <Inputitem todoList={todoList} setTodoList={setTodoList} />
       <Todoline />
       <Todobox>
@@ -17,7 +24,7 @@ function App() {
           isDone={false}
         />
       </Todobox>
-      <DoneTitle>해치웠다!</DoneTitle>
+      <DoneTitle>해치운 목록</DoneTitle>
       <Doneline />
       <Donebox>
         <Todolist todoList={todoList} setTodoList={setTodoList} isDone={true} />

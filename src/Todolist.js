@@ -1,20 +1,25 @@
 import Todoitem from "./Todoitem";
+import { setTodoListDB, deleteListDB } from "./localforage";
 
 function Todolist({ todoList, setTodoList, isDone }) {
   const deleteList = (id) => {
     const deletedList = todoList.filter((todoList) => todoList.id !== id);
-    setTodoList(deletedList);
+    deleteListDB(id).then(() => {
+      setTodoList(deletedList);
+    });
   };
 
   const changeTodoStatus = (id, todo) => {
-    const mappedList = todoList.map((item) => {
-      if (item.id === id) {
-        if (todo !== undefined) return { ...item, todo: todo };
-        return { ...item, done: !item.done };
-      }
-      return item;
+    const cloneTodoList = [...todoList];
+    const changeItem = cloneTodoList.filter((list) => list.id === id);
+    if (todo !== undefined) {
+      changeItem[0].todo = todo;
+    } else {
+      changeItem[0].done = !changeItem[0].done;
+    }
+    setTodoListDB(changeItem[0]).then(() => {
+      setTodoList(cloneTodoList);
     });
-    setTodoList(mappedList);
   };
 
   return (
