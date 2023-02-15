@@ -1,34 +1,39 @@
 import React, { useState } from "react";
 import uuid from "react-uuid";
 import styled from "styled-components";
-
-function Inputitem({ todoList, setTodoList }) {
+import { setTodoListDB, clearTodoListDB } from "./localforage";
+interface Props {
+  todoList: { id: string; todo: string; done: boolean }[];
+  setTodoList: React.Dispatch<
+    React.SetStateAction<{ id: string; todo: string; done: boolean }[]>
+  >;
+}
+function Inputitem({ todoList, setTodoList }: Props) {
   const [todo, setTodo] = useState("");
-  const onChange = (e) => {
+  const onChange = (e: { target: { value: React.SetStateAction<string> } }) => {
     setTodo(e.target.value);
   };
-
-  const addTodo = (todo, list) => {
-    const idNumber = uuid(); //id 번호 부여는 제일 끝 id 번호에 +1해서 꼬임방지
-    const todoValue = {
-      id: idNumber,
-      todo: todo,
-      done: false,
-    };
+  const addTodo = () => {
     if (todo !== "") {
-      return setTodoList(list.concat(todoValue));
+      const idNumber = uuid();
+      const todoValue = {
+        id: idNumber,
+        todo: todo,
+        done: false,
+      };
+      setTodoListDB(todoValue).then(() => {
+        setTodoList([...todoList].concat(todoValue));
+        setTodo("");
+      });
     }
-    return setTodoList(list);
   };
-
   return (
     <Itembox>
       <Input
         onChange={onChange}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            addTodo(todo, todoList);
-            setTodo("");
+            addTodo();
           }
         }}
         placeholder="입력하세요~"
@@ -36,15 +41,16 @@ function Inputitem({ todoList, setTodoList }) {
       ></Input>
       <Button
         onClick={() => {
-          addTodo(todo, todoList);
-          setTodo("");
+          addTodo();
         }}
       >
         추가
       </Button>
       <Button
         onClick={() => {
-          setTodoList([{}]);
+          clearTodoListDB().then(() => {
+            setTodoList([]);
+          });
         }}
       >
         초기화
