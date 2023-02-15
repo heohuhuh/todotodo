@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import uuid from "react-uuid";
 import styled from "styled-components";
 import { setTodoListDB, clearTodoListDB } from "./localforage";
-
-function Inputitem({ todoList, setTodoList }) {
+interface Props {
+  todoList: { id: string; todo: string; done: boolean }[];
+  setTodoList: React.Dispatch<
+    React.SetStateAction<{ id: string; todo: string; done: boolean }[]>
+  >;
+}
+function Inputitem({ todoList, setTodoList }: Props) {
   const [todo, setTodo] = useState("");
-  const onChange = (e) => {
+  const onChange = (e: { target: { value: React.SetStateAction<string> } }) => {
     setTodo(e.target.value);
   };
   const addTodo = () => {

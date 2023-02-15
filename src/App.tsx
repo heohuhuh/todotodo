@@ -5,7 +5,9 @@ import Inputitem from "./Inputitem";
 import { getTodoListDB } from "./localforage";
 
 function App() {
-  const [todoList, setTodoList] = useState([]);
+  const [todoList, setTodoList] = useState<
+    { id: string; todo: string; done: boolean }[]
+  >([]);
   useEffect(() => {
     getTodoListDB().then((result) => {
       setTodoList(result);
